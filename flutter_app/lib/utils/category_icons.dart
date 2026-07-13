@@ -1,0 +1,87 @@
+import 'package:flutter/material.dart';
+
+/// Maps the backend's stable icon keys (backend/src/utils/presets.js) onto
+/// Material icons. The keys are the contract — never rename one, existing rows
+/// store it. An unknown key falls back instead of crashing the row.
+const Map<String, IconData> _icons = {
+  // income
+  'allowance': Icons.card_giftcard,
+  'bonus': Icons.auto_awesome,
+  'business': Icons.business_center,
+  'investment_income': Icons.trending_up,
+  'other_income': Icons.attach_money,
+  'salary': Icons.payments,
+  'pension': Icons.account_balance,
+
+  // expense
+  'air_tickets': Icons.flight,
+  'auto_rickshaw': Icons.electric_rickshaw,
+  'bike': Icons.two_wheeler,
+  'bills': Icons.receipt_long,
+  'cable_tv': Icons.tv,
+  'car': Icons.directions_car,
+  'car_insurance': Icons.verified_user,
+  'card_fee': Icons.credit_card,
+  'cigarette': Icons.smoking_rooms,
+  'cloths': Icons.checkroom,
+  'drinks': Icons.local_cafe,
+  'driver': Icons.person,
+  'durables': Icons.inventory_2,
+  'education': Icons.school,
+  'electricity': Icons.bolt,
+  'emi': Icons.event_repeat,
+  'entertainment': Icons.movie,
+  'fast_food': Icons.lunch_dining,
+  'festivals': Icons.celebration,
+  'fitness': Icons.fitness_center,
+  'food': Icons.restaurant,
+  'fruit_vegetables': Icons.eco,
+  'fuel': Icons.local_gas_station,
+  'furniture': Icons.chair,
+  'gas': Icons.local_fire_department,
+  'gifts': Icons.redeem,
+  'groceries': Icons.shopping_cart,
+  'health': Icons.favorite,
+  'health_insurance': Icons.medical_services,
+  'insurance': Icons.shield,
+  'internet': Icons.wifi,
+  'investment_expense': Icons.show_chart,
+  'kids': Icons.child_care,
+  'laundry': Icons.local_laundry_service,
+  'maid': Icons.cleaning_services,
+  'medicine': Icons.medication,
+  'milk': Icons.local_drink,
+  'mobile': Icons.smartphone,
+  'other_expenses': Icons.more_horiz,
+  'parking': Icons.local_parking,
+  'party': Icons.celebration,
+  'personal_grooming': Icons.face_retouching_natural,
+  'pet': Icons.pets,
+  'rent': Icons.home,
+  'repair_maintenance': Icons.build,
+  'restaurant_hotel': Icons.hotel,
+  'savings': Icons.savings,
+  'shopping': Icons.shopping_bag,
+  'social': Icons.groups,
+  'stationary': Icons.edit,
+  'taxes': Icons.gavel,
+  'taxi': Icons.local_taxi,
+  'toiletries': Icons.soap,
+  'toll': Icons.toll,
+  'toys': Icons.toys,
+  'transportation': Icons.directions_bus,
+  'vacation': Icons.beach_access,
+  'water': Icons.water_drop,
+
+  // payment methods
+  'cash': Icons.payments,
+  'bank': Icons.account_balance,
+  'card': Icons.credit_card,
+  'others': Icons.more_horiz,
+
+  // accounts
+  'wallet': Icons.account_balance_wallet,
+  'coins': Icons.monetization_on,
+};
+
+IconData iconFor(String? key) => _icons[key] ?? Icons.more_horiz;

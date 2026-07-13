@@ -1,0 +1,33 @@
+{
+  "name": "sisirbindu-trackerapp-backend",
+  "version": "1.0.0",
+  "description": "SISIRBINDU TRACKERAPP - Income & Expense Tracker backend (API + WebSocket)",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node dist/boot.js",
+    "dev": "NODE_ENV=development nodemon src/server.js",
+    "serve": "NODE_ENV=development node src/server.js",
+    "build": "esbuild src/server.js --bundle --platform=node --target=node20 --packages=external --outfile=dist/boot.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "exceljs": "^4.4.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.2",
+    "node-cron": "^4.2.1",
+    "nodemailer": "^7.0.9",
+    "pdfkit": "^0.17.2",
+    "pg": "^8.16.3",
+    "web-push": "^3.6.7",
+    "ws": "^8.18.3",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.10",
+    "nodemon": "^3.1.10"
+  }
+}

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <title>SISIRBINDU TRACKERAPP — Income &amp; Expense Tracker</title>
+    <meta
+      name="description"
+      content="Track income and expenses, attach bills, receipts and voice notes, and export income-tax-ready statements as PDF or Excel."
+    />
+
+    <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon-16.png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <meta name="theme-color" content="#0E7C66" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#12121a" media="(prefers-color-scheme: dark)" />
+    <meta name="apple-mobile-web-app-title" content="SisirBindu" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SISIRBINDU TRACKERAPP" />
+    <meta property="og:title" content="SISIRBINDU TRACKERAPP — Income &amp; Expense Tracker" />
+    <meta
+      property="og:description"
+      content="Every taka accounted for — and tax-ready. Attach bills, receipts and voice notes to any entry."
+    />
+    <meta property="og:image" content="/logo.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SISIRBINDU TRACKERAPP" />
+    <meta
+      name="twitter:description"
+      content="Income and expense tracking with income-tax-ready PDF and Excel statements."
+    />
+    <meta name="twitter:image" content="/logo.png" />
+
+    <script>
+      // Apply the stored theme before first paint, so a dark-mode reload never
+      // flashes a white screen.
+      (function () {
+        try {
+          var pref = localStorage.getItem('sb_theme') || 'system';
+          var dark =
+            pref === 'dark' ||
+            (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.classList.toggle('dark', dark);
+          document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

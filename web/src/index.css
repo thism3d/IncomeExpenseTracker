@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 20% 99%;
+    --foreground: 24 10% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 24 10% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 24 10% 10%;
+
+    /* Brand teal, from the SisirBindu logo. */
+    --primary: 166 88% 32%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 40 12% 95%;
+    --secondary-foreground: 24 10% 20%;
+
+    --muted: 40 12% 95%;
+    --muted-foreground: 25 6% 45%;
+
+    --accent: 166 60% 95%;
+    --accent-foreground: 166 88% 22%;
+
+    --destructive: 1 62% 49%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 30 8% 90%;
+    --input: 30 8% 90%;
+    --ring: 166 88% 32%;
+
+    /* Polarity pair — validated for contrast against both surfaces. */
+    --income: 166 85% 26%;
+    --expense: 1 62% 49%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 240 17% 8%;
+    --foreground: 60 5% 96%;
+
+    --card: 240 15% 11%;
+    --card-foreground: 60 5% 96%;
+
+    --popover: 240 15% 11%;
+    --popover-foreground: 60 5% 96%;
+
+    --primary: 166 84% 41%;
+    --primary-foreground: 240 17% 8%;
+
+    --secondary: 240 10% 17%;
+    --secondary-foreground: 60 5% 90%;
+
+    --muted: 240 10% 17%;
+    --muted-foreground: 240 5% 65%;
+
+    --accent: 240 10% 20%;
+    --accent-foreground: 166 84% 60%;
+
+    --destructive: 5 86% 70%;
+    --destructive-foreground: 240 17% 8%;
+
+    --border: 240 10% 20%;
+    --input: 240 10% 22%;
+    --ring: 166 84% 41%;
+
+    --income: 165 62% 48%;
+    --expense: 5 86% 70%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+
+  /* Money columns must line up vertically; body copy should not be forced into
+     tabular figures. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-border;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}

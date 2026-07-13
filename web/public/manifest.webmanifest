@@ -1,0 +1,22 @@
+{
+  "name": "SISIRBINDU TRACKERAPP",
+  "short_name": "SisirBindu",
+  "description": "Income & expense tracking with income-tax-ready PDF and Excel statements.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#0E7C66",
+  "categories": ["finance", "productivity", "business"],
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Add transaction", "url": "/transactions" },
+    { "name": "Reports", "url": "/reports" },
+    { "name": "Drive", "url": "/drive" }
+  ]
+}
