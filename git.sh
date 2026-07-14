@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# SisirBindu — one-command GitHub version control.
+# SisirBindu -- one-command GitHub version control.
 #
 #   ./git.sh                    Stage all changes, commit (asks for message), push to origin/main.
 #   ./git.sh "your message"     Skip the prompt and commit with the given message.
@@ -19,12 +19,18 @@ BRANCH="main"
 
 cd "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# ---- Pretty output --------------------------------------------------------
-BOLD=$'\033[1m'; DIM=$'\033[2m'; RED=$'\033[31m'; GRN=$'\033[32m'; YLW=$'\033[33m'; BLU=$'\033[34m'; RST=$'\033[0m'
-step() { echo "${BLU}${BOLD}▶ $*${RST}"; }
-ok()   { echo "${GRN}✓ $*${RST}"; }
-warn() { echo "${YLW}! $*${RST}"; }
-die()  { echo "${RED}✗ $*${RST}" >&2; exit 1; }
+# ---- Pretty output (ASCII only, safe in any terminal) ---------------------
+BOLD="$(tput bold 2>/dev/null || echo '')"
+DIM="$(tput dim 2>/dev/null || echo '')"
+RED="$(tput setaf 1 2>/dev/null || echo '')"
+GRN="$(tput setaf 2 2>/dev/null || echo '')"
+YLW="$(tput setaf 3 2>/dev/null || echo '')"
+BLU="$(tput setaf 4 2>/dev/null || echo '')"
+RST="$(tput sgr0 2>/dev/null || echo '')"
+step() { printf '%s>> %s%s\n' "${BLU}${BOLD}" "$*" "${RST}"; }
+ok()   { printf '%s[OK] %s%s\n' "${GRN}" "$*" "${RST}"; }
+warn() { printf '%s[!]  %s%s\n' "${YLW}" "$*" "${RST}"; }
+die()  { printf '%s[X]  %s%s\n' "${RED}" "$*" "${RST}" >&2; exit 1; }
 
 # ---- Args -----------------------------------------------------------------
 DO_INIT=0
@@ -46,53 +52,53 @@ fi
 command -v git >/dev/null 2>&1 || die "git is not installed."
 
 if [[ ! -d .git ]] && ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-  step "No git repo found — initializing…"
+  step "No git repo found -- initializing..."
   git init
 fi
 
 # Make sure the default branch is 'main'.
 if [[ "$(git symbolic-ref --short HEAD 2>/dev/null)" != "$BRANCH" ]]; then
-  step "Setting branch to '$BRANCH'…"
+  step "Setting branch to '$BRANCH'..."
   git branch -M "$BRANCH"
 fi
 
 # Make sure the remote exists (no-op if already configured).
 if ! git remote get-url "$REMOTE_NAME" >/dev/null 2>&1; then
-  step "Adding remote $REMOTE_NAME → $REMOTE_URL"
+  step "Adding remote $REMOTE_NAME -> $REMOTE_URL"
   git remote add "$REMOTE_NAME" "$REMOTE_URL"
 else
   current_url="$(git remote get-url "$REMOTE_NAME")"
   if [[ "$current_url" != "$REMOTE_URL" ]]; then
-    warn "Remote '$REMOTE_NAME' points to $current_url (expected $REMOTE_URL). Updating…"
+    warn "Remote '$REMOTE_NAME' points to $current_url (expected $REMOTE_URL). Updating..."
     git remote set-url "$REMOTE_NAME" "$REMOTE_URL"
   fi
 fi
 ok "Remote ready: $(git remote get-url "$REMOTE_NAME")"
 
 # ---- Stage ----------------------------------------------------------------
-step "Staging changes (git add .)…"
+step "Staging changes (git add .)..."
 git add .
 
 # Anything staged?
 if git diff --cached --quiet; then
-  ok "Nothing to commit — working tree clean."
+  ok "Nothing to commit -- working tree clean."
 else
   # Ask for a commit message if none was passed.
   if [[ -z "$COMMIT_MSG" ]]; then
-    echo "${DIM}— staged files —${RST}"
+    echo "${DIM}-- staged files --${RST}"
     git diff --cached --name-only | sed 's/^/    /'
     echo
     read -r -p "${BOLD}Commit message: ${RST}" COMMIT_MSG
-    [[ -n "${COMMIT_MSG:-}" ]] || die "Empty commit message — aborted."
+    [[ -n "${COMMIT_MSG:-}" ]] || die "Empty commit message -- aborted."
   fi
 
-  step "Committing…"
+  step "Committing..."
   git commit -m "$COMMIT_MSG"
   ok "Committed: $COMMIT_MSG"
 fi
 
 # ---- Push -----------------------------------------------------------------
-step "Pushing to $REMOTE_NAME/$BRANCH…"
+step "Pushing to ${REMOTE_NAME}/${BRANCH}..."
 # Use -u on first push (or --init); otherwise a normal push.
 if [[ $DO_INIT -eq 1 ]] || ! git rev-parse --abbrev-ref --symbolic-full-name '@{u}' >/dev/null 2>&1; then
   git push -u "$REMOTE_NAME" "$BRANCH"
